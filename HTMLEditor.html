@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Editor</title>
+
+  <style>
+    * {
+      padding: 10px;
+      /* margin: 5px; */
+    }
+    body {
+      font-family: sans-serif;
+    }
+    #output {
+      border: 1px solid black;
+    }
+    .h {
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Vanilla HTML Editor</h2>
+
+  <b>IN :</b>
+  <br>
+  <textarea placeholder="Write some HTML..." oninput='x()'
+    id="input" cols="100" rows="15"></textarea>
+  <br><br>
+  <b>OUT :</b>
+  <br>
+  <br>
+  <span class='h' id='output'></span>
+<script>
+
+let output = document.getElementById('output')
+let input = document.getElementById('input')
+
+function x() {
+  if (input.value === '') {
+    output.className = 'h'
+  } else {
+    output.className = ''
+  }
+  output.innerHTML = input.value
+}
+
+
+</script>
+
+</body>
+
+</html>
