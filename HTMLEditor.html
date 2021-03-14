@@ -21,12 +21,25 @@
     #c {
       color: #777;
     }
+    #x {
+      font-weight: bold;
+      font-size: 30px;
+      padding:0;
+    }
+    #check {
+      margin-left: 30px;
+    }
   </style>
 </head>
 
 <body>
 
-  <h2 style='margin-bottom:0'>Vanilla HTML Editor</h2>
+  <div style='margin-bottom:0'>
+    <span id='x'>Vanilla HTML Editor</span>
+    <input onchange='y()' type="checkbox" id="check" checked>
+    <span>save to localStorage</span>
+  </div>
+
   <span id='c'></span>
   <br><br>
   <br>
@@ -44,13 +57,29 @@
 let output = document.getElementById('output')
 let input = document.getElementById('input')
 let save = document.getElementById('c')
+let check = document.getElementById('check')
 
 let count = false
 
+if (localStorage.getItem('save') !== null) {
+  check.checked = bool(localStorage.getItem('save'))
+} else {
+  localStorage.setItem('save', true)
+}
+
+
 setInterval(() => {
   if (count) count = false
-  save.innerHTML = 'All changes saved.'
+  if (bool(localStorage.getItem('save'))) save.innerHTML = 'All changes saved.'
 }, 1000)
+
+function bool(str) {
+  return true ? str === 'true' : false
+}
+
+function y() {
+  localStorage.setItem('save', check.checked)
+}
 
 function x() {
   if (input.value === '') {
@@ -59,10 +88,14 @@ function x() {
     output.className = ''
   }
   output.innerHTML = input.value
-  save.innerHTML = 'Saving to localStorage...'
-  if (count === 0) {
-    localStorage.setItem('x', input.value)
-    count = true
+  if (bool(localStorage.getItem('save'))) {
+    save.innerHTML = 'Saving to localStorage...'
+    if (count === 0) {
+      localStorage.setItem('x', input.value)
+      count = true
+    }
+  } else {
+    save.innerHTML = 'New changes are unsaved'
   }
 }
 
@@ -70,7 +103,6 @@ if (localStorage.getItem('x') !== null) {
   input.value = localStorage.getItem('x')
   x()
 }
-
 
 </script>
 
