@@ -18,13 +18,18 @@
     .h {
       visibility: hidden;
     }
+    #c {
+      color: #777;
+    }
   </style>
 </head>
 
 <body>
 
-  <h2>Vanilla HTML Editor</h2>
-
+  <h2 style='margin-bottom:0'>Vanilla HTML Editor</h2>
+  <span id='c'></span>
+  <br><br>
+  <br>
   <b>IN :</b>
   <br>
   <textarea placeholder="Write some HTML..." oninput='x()'
@@ -38,6 +43,14 @@
 
 let output = document.getElementById('output')
 let input = document.getElementById('input')
+let save = document.getElementById('c')
+
+let count = false
+
+setInterval(() => {
+  if (count) count = false
+  save.innerHTML = 'All changes saved.'
+}, 1000)
 
 function x() {
   if (input.value === '') {
@@ -46,6 +59,16 @@ function x() {
     output.className = ''
   }
   output.innerHTML = input.value
+  save.innerHTML = 'Saving to localStorage...'
+  if (count === 0) {
+    localStorage.setItem('x', input.value)
+    count = true
+  }
+}
+
+if (localStorage.getItem('x') !== null) {
+  input.value = localStorage.getItem('x')
+  x()
 }
 
 
