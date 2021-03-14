@@ -61,24 +61,28 @@ let check = document.getElementById('check')
 
 let count = false
 
-if (localStorage.getItem('save') !== null) {
+if (localStorage.getItem('save_hfksjd') !== null) {
   check.checked = bool(localStorage.getItem('save'))
+  input.value = localStorage.getItem('x_haskljdhf')
+  x()
 } else {
-  localStorage.setItem('save', true)
+  localStorage.setItem('save_hfksjd', true)
 }
 
 
 setInterval(() => {
   if (count) count = false
-  if (bool(localStorage.getItem('save'))) save.innerHTML = 'All changes saved.'
-}, 1000)
+  if (bool(localStorage.getItem('save_hfksjd'))) {
+    setTimeout(() => save.innerHTML = 'All changes saved.', 800)
+  }
+}, 800)
 
 function bool(str) {
   return true ? str === 'true' : false
 }
 
 function y() {
-  localStorage.setItem('save', check.checked)
+  localStorage.setItem('save_hfksjd', check.checked)
 }
 
 function x() {
@@ -88,10 +92,10 @@ function x() {
     output.className = ''
   }
   output.innerHTML = input.value
-  if (bool(localStorage.getItem('save'))) {
+  if (bool(localStorage.getItem('save_hfksjd'))) {
     save.innerHTML = 'Saving to localStorage...'
-    if (count === 0) {
-      localStorage.setItem('x', input.value)
+    if (!count) {
+      localStorage.setItem('x_haskljdhf', input.value)
       count = true
     }
   } else {
@@ -99,8 +103,8 @@ function x() {
   }
 }
 
-if (localStorage.getItem('x') !== null) {
-  input.value = localStorage.getItem('x')
+if (localStorage.getItem('x_haskljdhf') !== null) {
+  input.value = localStorage.getItem('x_haskljdhf')
   x()
 }
 
